@@ -1,1 +1,1 @@
-from scratchhh import Scratch
+from scratchhh.scratchhh import Scratch
