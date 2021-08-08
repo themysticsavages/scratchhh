@@ -2,6 +2,8 @@ import requests
 import json
 import os
 
+__author__ = 'themysticsavages'
+__version__ = '0.1.1'
 os.chdir(os.getcwd())
 
 class Scratch:

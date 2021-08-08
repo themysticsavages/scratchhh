@@ -1,6 +1,6 @@
 # scratchhh
 [![img](https://shields.io/badge/view-on%20github-black?logo=github)](https://github.com/themysticsavages/scratchhh)
-[![img](https://shields.io/badge/pypi-0.1.0-blue?logo=pypi)](https://pypi.org/package/scratchhh)
+[![img](https://shields.io/badge/pypi-0.1.1-blue?logo=pypi)](https://pypi.org/package/scratchhh)
 
 [![scratch](https://scratch.mit.edu/images/logo_sm.png)](https://scratch.mit.edu)
 
