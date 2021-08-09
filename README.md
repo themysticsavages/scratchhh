@@ -49,3 +49,24 @@ Scratch.getUserAv(user, file)
 ```
 
 More features will be added as project development moves!
+
+## Examples
+```py
+from scratchhh.scratchhh import Scratch
+import os
+
+ids = Scratch.getUserProj('Scratchteam', 10)
+print('Getting some thumbnails :P')
+os.chdir('thumbs')
+
+for i in range(0, 10):
+  Scratch.getThumb(ids[i], 'thumbnail{}.png'.format(i))
+```
+```py
+from scratchhh.scratchhh import Scratch
+
+project = Scratch.searchProj('minecraft', 1)[0]
+loves = Scratch.getInfo(project)['stats']['loves']
+
+print('This project has {} loves. WOW!'.format(loves))
+```
