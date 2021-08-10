@@ -1,6 +1,8 @@
 import requests
 import json
+import bs4
 import os
+import re
 
 os.chdir(os.getcwd())
 
@@ -44,3 +46,41 @@ class Scratch:
                     f.write(chunk)
         else:
             print('The given username is invalid!')
+
+    def exists(ini:str):
+        if re.match('^[0-9]*$', ini):
+            r = requests.get('https://api.scratch.mit.edu/projects/{}'.format(ini))
+            if r.status_code == 200:
+                return True
+            else:
+                return None
+        elif re.match('^[a-zA-Z]+$', ini, re.IGNORECASE):
+            r = requests.get('https://api.scratch.mit.edu/users/{}'.format(ini))
+            if r.status_code == 200:
+                return True
+            else:
+                return None
+
+    def getProjComments(id:str, num=1):
+        r = requests.get('https://scratch.mit.edu/site-api/comments/project/{}/'.format(id))
+        soup = bs4.BeautifulSoup(r.text, 'html.parser')
+
+        rawcomments = []
+        formattedcomments = []
+
+        for tr in soup.find_all('li'):
+            values = [div.text.strip('\n') for div in tr.find_all('div', {'class':'comment'})]
+            rawcomments.append(values)
+
+        def Commentformat(string):
+            comment = string.replace('        ', '').replace('\n\n', '').replace('Reply', '').replace('    ', '').split('\n')
+            while '  ' in comment:
+                comment.remove('  ')
+            return comment
+
+        for i in range(0, num):
+            comment = rawcomments[i][0]
+            formattedcomments.append(Commentformat(comment))
+        
+        return formattedcomments
+            

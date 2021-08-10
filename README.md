@@ -1,6 +1,6 @@
 # scratchhh
 [![img](https://shields.io/badge/view-on%20github-black?logo=github)](https://github.com/themysticsavages/scratchhh)
-[![img](https://shields.io/badge/pypi-0.1.0-blue?logo=pypi)](https://pypi.org/project/scratchhh)
+[![img](https://shields.io/badge/view-on%20pypi-blue?logo=pypi)](https://pypi.org/project/scratchhh)
 
 [![scratch](https://scratch.mit.edu/images/logo_sm.png)](https://scratch.mit.edu)
 
@@ -46,6 +46,18 @@ Scratch.getInfo(id)
 # Get a user avatar
 from scratchhh.scratchhh import Scratch
 Scratch.getUserAv(user, file)
+```
+### exists
+```py
+# Check if a user or project exists
+from scratchhh.scratchhh import Scratch
+Scratch.getUserAv(ini)
+```
+### getProjComments
+```py
+# Get project comments
+from scratchhh.scratchhh import Scratch
+Scratch.getProjComments(id, num)
 ```
 
 More features will be added as project development moves!
