@@ -70,3 +70,12 @@ loves = Scratch.getInfo(project)['stats']['loves']
 
 print('This project has {} loves. WOW!'.format(loves))
 ```
+```py
+from scratchhh.scratchhh import Scratch
+
+users = ['Za-Chary', 'Scratchteam', 'Paddle2See']
+print('Getting some user pfps...')
+
+for i in range(0, len(users)):
+  Scratch.getUserAv(users[i], '{}.png'.format(users[i]))
+```
