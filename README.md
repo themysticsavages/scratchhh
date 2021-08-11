@@ -91,3 +91,6 @@ print('Getting some user pfps...')
 for i in range(0, len(users)):
   Scratch.getUserAv(users[i], '{}.png'.format(users[i]))
 ```
+
+## Why scratchhh?
+scratchhh offers simpler command syntax and results and a few more features than other modules, I guess.
