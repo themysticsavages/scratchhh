@@ -65,6 +65,13 @@ Scratch.getProjComments(id, num)
 from scratchhh.scratchhh import Scratch
 Scratch.getProjComments(user, num)
 ```
+### cloneProj
+```py
+# Get a project as an sb3 file
+from scratchhh.scratchhh import Scratch
+Scratch.cloneProj(id, file)
+```
+
 
 More features will be added as project development moves!
 

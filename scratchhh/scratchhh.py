@@ -10,6 +10,7 @@ class Scratch:
     API_URL = 'https://api.scratch.mit.edu/'
     CDN_URL = 'https://cdn2.scratch.mit.edu/'
     SPI_URL = 'https://scratch.mit.edu/site-api/'
+    PSI_URL = 'https://projects.scratch.mit.edu/'
 
     def getUserProj(user:str, num=1):
         r = json.loads(requests.get('{}users/{}/projects/'.format(Scratch.API_URL, user)).text)
@@ -18,7 +19,7 @@ class Scratch:
             ids.append(str(r[i]['id']))
         return ids
 
-    def getThumb(id:str, file='thumbnail.png'):
+    def getProjThumb(id:str, file='thumbnail.png'):
         r = requests.get('{}get_image/project/{}_640x372.png'.format(Scratch.CDN_URL, id), stream=True)
         if r.status_code == 200:
             with open(file, 'wb') as f:
@@ -104,3 +105,10 @@ class Scratch:
             formattedcomments.append(Commentformat(comment))
             
         return formattedcomments
+
+    def cloneProj(id:str, file='scratchproject.sb3'):
+        r = requests.get('{}internalapi/project/{}/get'.format(Scratch.PSI_URL, id), stream=True)
+        if r.status_code == 200:
+            with open(file, 'wb') as f:
+                for chunk in r.iter_content(1024):
+                    f.write(chunk)
