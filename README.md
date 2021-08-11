@@ -59,6 +59,12 @@ Scratch.getUserAv(ini)
 from scratchhh.scratchhh import Scratch
 Scratch.getProjComments(id, num)
 ```
+### getUserComments
+```py
+# Get user comments
+from scratchhh.scratchhh import Scratch
+Scratch.getProjComments(user, num)
+```
 
 More features will be added as project development moves!
 
@@ -90,6 +96,14 @@ print('Getting some user pfps...')
 
 for i in range(0, len(users)):
   Scratch.getUserAv(users[i], '{}.png'.format(users[i]))
+```
+```py
+from scratchhh.scratchhh import Scratch
+
+ids = ['658095', '142', '943855']
+
+for i in range(0, len(ids)):
+  print(Scratch.getProjComments(ids[i], 3))
 ```
 
 ## Why scratchhh?

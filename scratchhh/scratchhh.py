@@ -39,14 +39,13 @@ class Scratch:
         j = { 'title':r['title'],'author':r['author']['username'],'share':r['history']['shared'],'stats':r['stats'] }
         return j
 
-    def getUserAv(user:str, file='userav.png'):
-        r = requests.get(json.loads(requests.get('{}users/{}'.format(Scratch.API_URL, user)).text)['profile']['images']['90x90'])
+    def getUserAv(user:str, file='userav.gif'):
+        uid = json.loads(requests.get('{}users/ajskateboarder/'.format(Scratch.API_URL)).text)['id']
+        r = requests.get('{}get_image/user/{}_60x60.png'.format(Scratch.CDN_URL, uid), stream=True)
         if r.status_code == 200:
             with open(file, 'wb') as f:
                 for chunk in r.iter_content(1024):
                     f.write(chunk)
-        else:
-            print('The given username is invalid!')
 
     def exists(ini:str):
         if re.match('^[0-9]*$', ini):
@@ -69,7 +68,7 @@ class Scratch:
                 comment.remove('  ')
             return comment
 
-        r = requests.get('{}/comments/{}'.format(Scratch.SPI_URL, id))
+        r = requests.get('{}comments/project/{}'.format(Scratch.SPI_URL, id))
         soup = bs4.BeautifulSoup(r.text, 'html.parser')
 
         rawcomments = []
@@ -81,6 +80,27 @@ class Scratch:
         for i in range(0, num):
             comment = rawcomments[i][0]
             formattedcomments.append(Commentformat(comment))
-        
-        return formattedcomments
             
+        return formattedcomments
+
+    def getUserComments(user:str, num=1):
+        def Commentformat(string):
+            comment = string.replace('        ', '').replace('\n\n', '').replace('Reply', '').replace('    ', '').split('\n')
+            while '  ' in comment:
+                comment.remove('  ')
+            return comment
+
+        r = requests.get('{}comments/user/{}'.format(Scratch.SPI_URL, user))
+        soup = bs4.BeautifulSoup(r.text, 'html.parser')
+
+        rawcomments = []
+        formattedcomments = []
+
+        for tr in soup.find_all('li'):
+            values = [div.text.strip('\n') for div in tr.find_all('div', {'class':'comment'})]
+            rawcomments.append(values)
+        for i in range(0, num):
+            comment = rawcomments[i][0]
+            formattedcomments.append(Commentformat(comment))
+            
+        return formattedcomments
