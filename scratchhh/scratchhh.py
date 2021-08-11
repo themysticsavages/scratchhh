@@ -78,7 +78,6 @@ class Scratch:
         for tr in soup.find_all('li'):
             values = [div.text.strip('\n') for div in tr.find_all('div', {'class':'comment'})]
             rawcomments.append(values)
-
         for i in range(0, num):
             comment = rawcomments[i][0]
             formattedcomments.append(Commentformat(comment))
