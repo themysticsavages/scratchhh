@@ -9,6 +9,7 @@ os.chdir(os.getcwd())
 class Scratch:
     API_URL = 'https://api.scratch.mit.edu/'
     CDN_URL = 'https://cdn2.scratch.mit.edu/'
+    SPI_URL = 'https://scratch.mit.edu/site-api/'
 
     def getUserProj(user:str, num=1):
         r = json.loads(requests.get('{}users/{}/projects/'.format(Scratch.API_URL, user)).text)
@@ -62,7 +63,13 @@ class Scratch:
                 return None
 
     def getProjComments(id:str, num=1):
-        r = requests.get('https://scratch.mit.edu/site-api/comments/project/{}/'.format(id))
+        def Commentformat(string):
+            comment = string.replace('        ', '').replace('\n\n', '').replace('Reply', '').replace('    ', '').split('\n')
+            while '  ' in comment:
+                comment.remove('  ')
+            return comment
+
+        r = requests.get('{}/comments/{}'.format(Scratch.SPI_URL, id))
         soup = bs4.BeautifulSoup(r.text, 'html.parser')
 
         rawcomments = []
@@ -71,12 +78,6 @@ class Scratch:
         for tr in soup.find_all('li'):
             values = [div.text.strip('\n') for div in tr.find_all('div', {'class':'comment'})]
             rawcomments.append(values)
-
-        def Commentformat(string):
-            comment = string.replace('        ', '').replace('\n\n', '').replace('Reply', '').replace('    ', '').split('\n')
-            while '  ' in comment:
-                comment.remove('  ')
-            return comment
 
         for i in range(0, num):
             comment = rawcomments[i][0]
