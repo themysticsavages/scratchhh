@@ -19,14 +19,17 @@ class Scratch:
             ids.append(str(r[i]['id']))
         return ids
 
-    def getProjThumb(id:str, file='thumbnail.png'):
-        r = requests.get('{}get_image/project/{}_640x372.png'.format(Scratch.CDN_URL, id), stream=True)
-        if r.status_code == 200:
-            with open(file, 'wb') as f:
-                for chunk in r.iter_content(1024):
-                    f.write(chunk)
-        else:
-            print('The ID for this project is invalid!')
+    def getProjThumb(id:str, url=False, file='thumbnail.png'):
+        if url == False:
+            r = requests.get('{}get_image/project/{}_640x372.png'.format(Scratch.CDN_URL, id), stream=True)
+            if r.status_code == 200:
+                with open(file, 'wb') as f:
+                    for chunk in r.iter_content(1024):
+                        f.write(chunk)
+            else:
+                print('The ID for this project is invalid!')
+        elif url == True:
+            return '{}get_image/project/{}_640x372.png'.format(Scratch.CDN_URL, id)
 
     def searchProj(query:str, num=1):
         r = json.loads(requests.get('{}search/projects/?mode=trending&q={}'.format(Scratch.API_URL, query)).text)
@@ -40,13 +43,17 @@ class Scratch:
         j = { 'title':r['title'],'author':r['author']['username'],'share':r['history']['shared'],'stats':r['stats'] }
         return j
 
-    def getUserAv(user:str, file='userav.gif'):
-        uid = json.loads(requests.get('{}users/ajskateboarder/'.format(Scratch.API_URL)).text)['id']
-        r = requests.get('{}get_image/user/{}_60x60.png'.format(Scratch.CDN_URL, uid), stream=True)
-        if r.status_code == 200:
-            with open(file, 'wb') as f:
-                for chunk in r.iter_content(1024):
-                    f.write(chunk)
+    def getUserAv(user:str, url=False, file='userav.gif'):
+        if url == False:
+            uid = json.loads(requests.get('{}users/ajskateboarder/'.format(Scratch.API_URL)).text)['id']
+            r = requests.get('{}get_image/user/{}_60x60.png'.format(Scratch.CDN_URL, uid), stream=True)
+            if r.status_code == 200:
+                with open(file, 'wb') as f:
+                    for chunk in r.iter_content(1024):
+                        f.write(chunk)
+        elif url == True:
+            uid = json.loads(requests.get('{}users/ajskateboarder/'.format(Scratch.API_URL)).text)['id']
+            return '{}get_image/user/{}_60x60.png'.format(Scratch.CDN_URL, uid)
 
     def exists(ini:str):
         if re.match('^[0-9]*$', ini):

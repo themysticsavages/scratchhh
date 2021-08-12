@@ -27,7 +27,7 @@ Scratch.getUserProj(user, num)
 ```py
 # Get a project thumbnail
 from scratchhh.scratchhh import Scratch
-Scratch.getThumb(id, file)
+Scratch.getThumb(id, url, file)
 ```
 ### searchProj
 ```py
@@ -45,7 +45,7 @@ Scratch.getInfo(id)
 ```py
 # Get a user avatar
 from scratchhh.scratchhh import Scratch
-Scratch.getUserAv(user, file)
+Scratch.getUserAv(user, url, file)
 ```
 ### exists
 ```py

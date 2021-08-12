@@ -6,7 +6,7 @@ with open('README.md', 'r') as fh:
 setuptools.setup(
     name='scratchhh', 
     url='https://github.com/themysticsavages/scratchhh',                    
-    version='0.2.6',                        
+    version='0.2.65',                        
     author='themysticsavages',
     license='MIT',        
     description='Scratch API wrapper',
