@@ -40,7 +40,9 @@ class Scratch:
 
     def getInfo(id:str):
         r = json.loads(requests.get('{}projects/{}'.format(Scratch.API_URL, id)).text)
-        j = { 'title':r['title'],'author':r['author']['username'],'share':r['history']['shared'],'stats':r['stats'] }
+        j = { 'title':r['title'],'author':r['author']['username'],'share':r['history']['shared'],'stats':r['stats'], 'remix': 'False' }
+        if r['remix']['root']:
+             j['remix'] = r['remix']['root']
         return j
 
     def getUserAv(user:str, url=False, file='userav.gif'):
